@@ -1,0 +1,41 @@
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "description": "npm init template for bootstraping an empty Colyseus project",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "node out/index.js",
+    "loadtest": "colyseus-loadtest loadtest/example.ts --room my_room --numClients 2",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/colyseus/create-colyseus/issues"
+  },
+  "homepage": "https://github.com/colyseus/create-colyseus#readme",
+  "devDependencies": {
+    "@colyseus/loadtest": "^0.13.1",
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.1",
+    "@types/request": "^2.48.5",
+    "ts-node": "^8.1.0",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "@colyseus/command": "^0.1.5",
+    "@colyseus/monitor": "^0.12.2",
+    "@colyseus/proxy": "^0.12.2",
+    "@types/serve-index": "^1.7.30",
+    "colyseus": "^0.13.7",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-basic-auth": "^1.2.0",
+    "express-jwt": "^5.3.1",
+    "mongoose": "^5.10.0",
+    "request": "^2.88.2",
+    "rxjs": "^6.5.5",
+    "serve-index": "^1.8.0",
+    "stateless": "^1.4.2"
+  }
+}

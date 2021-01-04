@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" />
+
+    <style>
+      body { font-family: Tahoma, Geneva, sans-serif; }
+    </style>
+
+    <!-- colyseus.js client -->
+    <!-- <script type="text/javascript" src="https://unpkg.com/colyseus.js@^0.13.0/dist/colyseus.js"></script> -->
+    <script src="colyseus.js"></script>
+  </head>
+  <body>
+    <!-- <h1>
+      <a href="https://github.com/colyseus/colyseus-examples"><img src="https://cdn.jsdelivr.net/gh/colyseus/colyseus@master/media/header.png" height="100" alt="colyseus" /></a>
+    </h1> -->
+
+    <!-- <p>This room doesn't use the room's state. It just broadcast messages through "broadcast" method.</p> -->
+
+    <table>
+      <tr>
+        <td>
+    <strong>Pass Wave</strong><br>
+    <form id="form-passwave">
+      <input type="text" id="input" value="" autofocus/>
+      <input type="submit" value="send" />
+    </form>
+  </td>
+  <td>
+    <strong>Send Trap</strong><br>
+    <form id="form-trap">
+      <input type="text" id="input" value="" >
+      <input type="submit" value="send" />
+    </form>
+  </td>
+  <td>
+    <strong>Send Die</strong><br>
+    <form id="form-die">
+      <input type="text" id="input" value="" >
+      <input type="submit" value="send" />
+    </form>
+  </td>
+  </tr>
+  </table>
+    <div id="messages"></div>
+
+    <script>
+      var host = window.document.location.host.replace(/:.*/, '');
+
+       
+      var client = new Colyseus.Client(location.protocol.replace("http", "ws") + "//" + host + (location.port ? ':'+location.port : ''));
+      client.joinOrCreate("pvp_survival").then(room => {
+        console.log("joined",room.id);
+
+        console.log(client);
+        room.send("READY", {DisplayName:"Player"+ Math.floor((Math.random() * 100) + 1),AvatarUrl:'1'});
+
+
+        // listen to patches coming from the server
+        room.onMessage("message", function(message) {
+          console.log(message);
+            var p = document.createElement("p");
+            p.innerText = message;
+            document.querySelector("#messages").appendChild(p);
+        });
+
+        room.onMessage("LEADERBOARD_CHANGE", function(message) {
+          console.log(message);
+            var p = document.createElement("p");
+            p.innerText = "LEADERBOARD_CHANGE:  playerAlive:" +  message.alive + " total: " + message.leaderboards.length;
+
+            document.querySelector("#messages").appendChild(p);
+        });
+
+        room.onMessage("READY_GAME", function(message) {
+          console.log('READY_GAME',message);
+           
+        });
+        room.onMessage("START_GAME", function(message) {
+          console.log('START_GAME',message);
+           
+        });
+        
+        room.onMessage("OTHER_PLAYER_JOIN", function(message) {
+          console.log(message);
+            var p = document.createElement("p");
+            p.innerText = "OTHER_PLAYER_JOIN Player:" +  message.currentPlayerJoin + " total: " + message.maxPlayerJoin;
+
+            document.querySelector("#messages").appendChild(p);
+        });
+        
+
+        // send message to room on submit
+        document.querySelector("#form-passwave").onsubmit = function(e) {
+            e.preventDefault();
+
+
+            var input = document.querySelector("#input");
+
+            console.log("input:", input.value);
+
+            // send data to room
+            room.send("SEND_WAVE_PASS", input.value);
+
+            // clear input
+            input.value = "";
+        }
+
+
+
+        document.querySelector("#form-trap").onsubmit = function(e) {
+            e.preventDefault();
+
+
+            var input = document.querySelector("#input");
+
+            console.log("input:", input.value);
+
+            // send data to room
+            room.send("SEND_TRAP", input.value);
+
+            // clear input
+            input.value = "";
+        }
+
+        document.querySelector("#form-die").onsubmit = function(e) {
+            e.preventDefault();
+
+
+            var input = document.querySelector("#input");
+
+            console.log("input:", input.value);
+
+            // send data to room
+            room.send("LOSE_LIFE", input.value);
+
+            // clear input
+            input.value = "";
+        }
+
+      });
+
+    </script>
+  </body>
+</html>
