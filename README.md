@@ -10,7 +10,7 @@ npm init colyseus-app
 
 ddd
 
-## Structure
+## Struct
 
 - `index.ts`: main entry point, register an empty room handler and attach [`@colyseus/monitor`](https://github.com/colyseus/colyseus-monitor)
 - `MyRoom.ts`: an empty room handler for you to implement your logic
