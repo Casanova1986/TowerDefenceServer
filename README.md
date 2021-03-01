@@ -24,7 +24,7 @@ ddd
     - `@colyseus/monitor`
     - `express`
   - `devDependencies`
-    - `ts-node`
+    - `ts-
     - `typescript`
     - `@colyseus/loadtest`
 - `tsconfig.json`: TypeScript configuration file
