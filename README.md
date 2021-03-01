@@ -8,6 +8,8 @@ An npm init template for kick starting a Colyseus project in TypeScript.
 npm init colyseus-app
 ```
 
+ddd
+
 ## Structure
 
 - `index.ts`: main entry point, register an empty room handler and attach [`@colyseus/monitor`](https://github.com/colyseus/colyseus-monitor)
